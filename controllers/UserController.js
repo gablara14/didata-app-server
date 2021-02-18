@@ -15,6 +15,22 @@ class UserController {
         })
     }    
     
+    static async updateUserImage(req, res){
+        const { imageURL } = req.body 
+        const { id } = req.params
+
+        await User.findByIdAndUpdate(id, imageURL,  {new:true} )
+    }
+
+    static async fetchUsers(req,res){
+        try{
+            const users = await User.find()
+            res.send(users)
+        } catch (err){
+            res.status(404).send(err.message)
+        }
+
+    }
 
 }
 
