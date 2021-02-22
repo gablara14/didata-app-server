@@ -21,7 +21,6 @@ class CommunityController {
 
 
 
-
     static async fetchCommunity(req,res){
         const { id } = req.body
         //const user = await User.findOne({ email })
@@ -33,16 +32,21 @@ class CommunityController {
         }
     }
 
-    static async fetchCommunities(req,res){
+    static async fetchAllCommunities(req,res){
         try {
-            if (req.params.id){
+            const communities = await Community.find()
+            return res.status(200).send(communities)
+        } catch (err){
+            return res.status(404).send(err.message)
+        }
+    }
+
+
+    static async fetchCommunitiesByUser(req,res){
+        try {
                 const { id } = req.params
                 const communities = await Community.find({ userId: id })
                 return res.status(200).send(communities)
-            } else {
-                const communities = await Community.find()
-                return res.status(200).send(communities)
-            }
         } catch (err){
             return res.status(404).send(err.message)
         }

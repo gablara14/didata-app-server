@@ -25,6 +25,7 @@ class UserController {
     static async fetchUsers(req,res){
         try{
             const users = await User.find()
+            
             res.send(users)
         } catch (err){
             res.status(404).send(err.message)

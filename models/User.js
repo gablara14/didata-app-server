@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
     imageURL: {
         type: String,
         required: true,
+    },
+    following: {
+        type: Number,
+        default: 0
     }
 })
 
