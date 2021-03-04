@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const userSchema = require('./User')
 
 const publicationsSchema = new mongoose.Schema({
     type:{
@@ -16,12 +16,14 @@ const publicationsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    createdAt:{
+        type: Date
+    },
     communityId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Community'
     }
 })
-
 
 
 mongoose.model('Publication', publicationsSchema)

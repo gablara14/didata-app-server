@@ -9,9 +9,7 @@ class CommunityController {
     static async createCommunity(req,res) {
         const { name, description, imageURL, userId, categories, closedCommunity, anyoneCanPost, hiddenCommunity  } = req.body
         
-        const categoriesArr = Object.values(categories).map(cat =>{
-            return cat.name
-        })
+        const categoriesArr = Object.values(categories).map(({name}) => name)
 
         const community = new Community({ name, description, imageURL,
             userId, closedCommunity, anyoneCanPost, hiddenCommunity, categories: categoriesArr })

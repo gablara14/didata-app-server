@@ -20,7 +20,7 @@ class UserCommunityController {
                     { _id: communityId },{ $inc: { 'members': 1 }},
                     { new:true }, (err2, community ) => {
                         if (err2) return res.status(500).send(err2)
-                        return res.send({ user, community })
+                        return res.send({ userId, communityId })
                     } )
             })
     }
@@ -40,14 +40,27 @@ class UserCommunityController {
                         { _id: communityId },{ $inc: { 'members': -1 }},
                         { new:true }, (err2, community ) => {
                             if (err2) return res.status(500).send(err2)
-                            return res.send({ user, community })
+                            return res.send({ userId, communityId })
                         } )
                 })
         })
-
-
     }
  
+
+    static async fetchFollowingList(req,res) {
+        try {
+            const { id } = req.params
+            const following = await UserCommunity.find({userId: id})
+            const followingList = following.map(community => {
+                return { communityId: community.communityId, userId: id} 
+            })
+            res.status(200).send(followingList)
+        } catch (err) {
+            res.status(404).send(err.message)
+        }
+
+    }
+
 }
 
 
