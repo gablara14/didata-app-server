@@ -19,6 +19,9 @@ const publicationsSchema = new mongoose.Schema({
     createdAt:{
         type: Date
     },
+    likes: {
+        type: Number
+    },
     communityId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Community'

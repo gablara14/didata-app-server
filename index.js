@@ -2,7 +2,7 @@ require('./models/User')
 require('./models/Community')
 require('./models/Publications')
 require('./models/UserCommunity')
-
+require('./models/Interaction')
 const express = require('express')
 const app = express()
 const authRoutes = require('./routes/authRoutes')
@@ -10,6 +10,7 @@ const communityRoutes = require('./routes/communityRoutes')
 const uploadRoutes = require('./routes/uploadRoutes')
 const userRoutes  = require('./routes/userRoutes')
 const publicationRoutes = require('./routes/publicationRoutes')
+const interactionRoutes = require('./routes/interactionRoutes')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const { mongoUri } = require('./config/keys')
@@ -22,7 +23,7 @@ app.use(communityRoutes)
 app.use(userRoutes)
 app.use(uploadRoutes)
 app.use(publicationRoutes)
-
+app.use(interactionRoutes)
 
 mongoose.connect(mongoUri, {
     useNewUrlParser: true,

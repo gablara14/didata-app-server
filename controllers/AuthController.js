@@ -13,7 +13,8 @@ class AuthController {
         const imageURL = 'new_user_image.jpg'
         const bio = ''
         const UserAlreadyExists = await User.findOne({ email })
-        if(!UserAlreadyExists  ){
+        const UsernameAlreadyExists = await User.findOne({ email })
+        if(!UserAlreadyExists && !UsernameAlreadyExists  ){
             try {
                 var salt = bcrypt.genSaltSync(10)
                 var hashedPassword = bcrypt.hashSync(password, salt)
@@ -24,8 +25,10 @@ class AuthController {
             } catch (err) {
                 return res.status(422).send(err.message)
             }
-        } else {
-            return res.status(400).send({ error: 'This email address is already being used' })
+        }else {
+            const usernameBeingUsed = UsernameAlreadyExists ? "This username is already being used" : ''
+            const emailBeingUsed = UserAlreadyExists ? "This email is already being used" : ''
+            return res.status(400).send({ error: [usernameBeingUsed, emailBeingUsed] })
         }
     }
 

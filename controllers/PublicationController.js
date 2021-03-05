@@ -7,14 +7,14 @@ const mongo = require('mongodb')
 class PublicationController {
 
     static async createPublication(req,res) {
-        const { type, userId, communityId, body, user } = req.body
+        const { type, userId, communityId, body, user  } = req.body
 
         let publication
         if (type === 'image'){
             const {  imageURL } = req.body
-            publication = new Publication({ imageURL, type, userId, createdAt: new Date() , communityId, body, user })
+            publication = new Publication({ imageURL, type, likes: 0, userId, createdAt: new Date() , communityId, body, user })
         } else {
-            publication = new Publication({ type, userId, createdAt: new Date(), communityId, body, user })
+            publication = new Publication({ type, userId, likes: 0, createdAt: new Date(), communityId, body, user })
         }
         await publication.save()
        

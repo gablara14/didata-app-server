@@ -6,5 +6,4 @@ router.post('/publications', PublicationController.createPublication )
 router.get('/users/:id/publications', PublicationController.fetchPublicationsByUser)
 router.get('/communities/:id/publications', PublicationController.fetchPublicationsByCommunity)
 
-
 module.exports = router
